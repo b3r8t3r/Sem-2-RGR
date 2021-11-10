@@ -76,6 +76,7 @@ string Gronsfeld_Encrypt(string stringInp, int key) {
 
 	for (int i = 0, t1, t2; i < stringInp.length(); i++) {
 		t1 = pow(10, i % keyLen);
+		if (stringInp[i] == 32) continue;
 		stringInp[i] += ((key / t1) % 10);
 	}
 
