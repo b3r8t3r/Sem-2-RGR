@@ -85,10 +85,29 @@ string Gronsfeld_Decrypt(string stringInp, int key) {
 		temp /= 10;
 	}
 
-	for (int i = 0, t1, t2; i < stringInp.length(); i++) {
+	/*for (int i = 0, t1, t2; i < stringInp.length(); i++) {
 		t1 = pow(10, i % keyLen);
 		if (stringInp[i] == 32) continue;
 		stringInp[i] -= ((key / t1) % 10);
+	}*/
+
+	for (long long int i = 0, t1, t2, latin_symb_count = 0; i < stringInp.size(); i++) {
+		if (!((stringInp[i] >= 'A' && stringInp[i] <= 'Z') || (stringInp[i] >= 'a' && stringInp[i] <= 'z'))) continue;
+		t2 = keyLen - 1 - latin_symb_count;
+		if (t2 < 0)
+			t2 = (t2 % keyLen + (keyLen)) % keyLen;
+		t1 = pow(10, t2);
+
+		if (stringInp[i] >= 'A' && stringInp[i] <= 'Z') {
+			stringInp[i] -= ((key / t1) % 10);
+			if (stringInp[i] < 'A') stringInp[i] = (stringInp[i] - 'A') % 26 + 'Z' + 1;
+		}
+		if (stringInp[i] >= 'a' && stringInp[i] <= 'z') {
+			stringInp[i] -= ((key / t1) % 10);
+			if (stringInp[i] < 'a') stringInp[i] = (stringInp[i] - 'a') % 26 + 'z' + 1;
+		}
+
+		latin_symb_count++;
 	}
 
 	return stringInp;

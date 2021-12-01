@@ -8,7 +8,7 @@
 #include "fileInOut.h"
 using namespace std;
 
-enum class Ciphers {
+enum Ciphers {
 	Gronsfeld = 1, Visiner, Atbash
 };
 
