@@ -1,18 +1,25 @@
 //Decrypt.cpp
 //========================================================================================
-#include<string>
-#include<iostream>
+#include <string>
+#include <iostream>
+#include <vector>
 #include "fileInOut.h"
 using namespace std;
 
 string Atbash_Decrypt(string text) {
-	string alfavit = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
+	string lowercase_latin = { "abcdefghijklmnopqrstuvwxyz" };
+	string uppercase_latin = { "ABCDEFGHIJKLMNOPQRSTUVWXYZ" };
 	int num;
 	for (int count = 0; count < text.length(); count++) {
-		for (int i = 0; i < alfavit.length(); i++) {
-			if (text[count] == alfavit[i]) {
-				num = alfavit.length() - i - 1;
-				text[count] = alfavit[num];
+		for (int i = 0; i < lowercase_latin.length(); i++) {
+			if (text[count] == lowercase_latin[i]) {
+				num = lowercase_latin.length() - i - 1;
+				text[count] = lowercase_latin[num];
+				break;
+			}
+			if (text[count] == uppercase_latin[i]) {
+				num = uppercase_latin.length() - i - 1;
+				text[count] = uppercase_latin[num];
 				break;
 			}
 		}
@@ -132,4 +139,43 @@ void Gronsfeld_out(int orig_encrypt_decrypt, bool after_encrypt)//для Цезаря
 	decryptMessage = Gronsfeld_Decrypt(stringInp, key_1);
 	cout << decryptMessage << endl;
 	file_Write(decryptMessage, orig_encrypt_decrypt,false);
+}
+
+string Key_Decrypt(string message, int key) {
+
+	vector <vector<char>> alphabet = {
+		{'A','B','C','D','E','F','G','H','I','J'},
+		{'K','L','M','N','O','P','Q','R','S','T'},
+		{'U','V','W','X','Y','Z','A','B','C','D'},
+		{'E','F','G','H','I','J','K','L','M','N'},
+		{'O','P','Q','R','S','T','U','V','W','X'},
+		{'Y','Z','A','B','C','D','E','F','G','H'},
+		{'I','J','K','L','M','N','O','P','Q','R'},
+		{'S','T','U','V','W','X','Y','Z','A','B'},
+		{'C','D','E','F','G','H','I','J','K','L'},
+		{'M','N','O','P','Q','R','S','T','U','V'}
+	};
+	int keyLen = 0;
+
+	for (long long int temp = key; temp > 0; keyLen++) {
+		temp /= 10;
+	}
+
+
+	for (int i = 0, t1, t2; i < message.size(); i++) {
+		t2 = keyLen - 1 - i;
+		if (t2 < 0)
+			t2 = (t2 % keyLen + (keyLen)) % keyLen;
+
+		t1 = pow(10, t2);
+
+		int keyPart = ((key / t1) % 10);
+
+		for (int j = 0; j < alphabet[i].size() - 1; j++) {
+			if (message[i] == alphabet[keyPart][j]) message[i] = j + '0';
+		}
+
+	}
+
+	return message;
 }

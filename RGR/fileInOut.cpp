@@ -13,6 +13,9 @@ const string fileOrig = "Original.txt";
 const string fileEncrypt = "Encrypted.txt";
 const string fileDecrypt = "Decrypted.txt";
 const int Key = 15;
+const string Vis_Key = "tem";
+
+
 
 
 void file_New() {
@@ -46,7 +49,7 @@ void file_Write(string str,int orig_encrypt_decrypt, bool is_encrypt) {
 		cout << "Ошибка открытия файла!" << endl;
 	}
 	else {
-		if (is_encrypt) str = Gronsfeld_Encrypt(str, Key);
+		if (is_encrypt) str = Visiner_Encrypt(str, Vis_Key);
 		file_out << str << endl;
 	}
 
@@ -74,7 +77,7 @@ void file_Write_(int str, int orig_encrypt_decrypt, bool is_encrypt) {
 	}
 	else {
 		string str_cr = to_string(str);
-		if (is_encrypt) str_cr = Gronsfeld_Encrypt(str_cr, Key);
+		if (is_encrypt) str_cr = Key_Encrypt(str_cr, Key);
 		file_out << str_cr << endl;
 	}
 
@@ -109,7 +112,7 @@ string file_Read(int orig_encrypt_decrypt, int string_num, bool is_encrypt) {
 			str = "";
 			getline(file_in, str);	//Считывание строки целиком
 
-			if (is_encrypt) str = Gronsfeld_Decrypt(str, Key);
+			if (is_encrypt) str = Visiner_Decrypt(str, Vis_Key);
 			if (index == string_num) {	//Считывание строки с определенным номером
 				return str;
 			}
@@ -152,7 +155,7 @@ int file_Read_(int orig_encrypt_decrypt, int string_num, bool is_encrypt) {
 		while (!file_in.eof()) {
 			str = "";
 			getline(file_in, str);	//Считывание строки целиком
-			if (is_encrypt) str = Gronsfeld_Decrypt(str, Key);
+			if (is_encrypt) str = Key_Decrypt(str, Key);
 			if (index == string_num) {	//Считывание строки с определенным номером
 				return stoi(str);	//Преобразует string в integer
 			}
