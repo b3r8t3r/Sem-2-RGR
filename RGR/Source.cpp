@@ -1,143 +1,155 @@
-//Source.cpp
+// Source.cpp
 //========================================================================================
 #include <iostream>
 #include <map>
-#include <locale.h>
-#include "Encrypt.h"
+
 #include "Decrypt.h"
+#include "Encrypt.h"
 #include "fileInOut.h"
 using namespace std;
 
-enum Ciphers {
-	Gronsfeld = 1, Visiner, Atbash
-};
-
+enum Ciphers { Gronsfeld = 1, Visiner, Atbash };
 
 void switch_encrypt(int number_of_code, int orig_encrypt_decrypt) {
-	cout << "Введите номер шифровки:" << endl;
-	cout << "<1> Гронсфельд" << endl << "<2> Вижинер" << endl << "<3> Атбаш\n: ";
-	cin >> number_of_code;
-	cout << endl;
-	switch (Ciphers(number_of_code)) {
-	case Ciphers::Gronsfeld:
-		Gronsfeld_in(orig_encrypt_decrypt);
-		break;
-	case Ciphers::Visiner:
-		Visiner_in(orig_encrypt_decrypt);
-		break;
-	case Ciphers::Atbash:
-		Atbash_in(orig_encrypt_decrypt);
-		break;
-	default:
-		cout << "Ошибка! Было введено неверное значение! Попробуйте еще раз." << endl << endl;
-		switch_encrypt(number_of_code, orig_encrypt_decrypt);
-	}
+  cout << "Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ С€РёС„СЂРѕРІРєРё:" << endl;
+  cout << "<1> Р“СЂРѕРЅСЃС„РµР»СЊРґ" << endl << "<2> Р’РёР¶РёРЅРµСЂ" << endl << "<3> РђС‚Р±Р°С€\n: ";
+  cin >> number_of_code;
+  cout << endl;
+  switch (Ciphers(number_of_code)) {
+    case Ciphers::Gronsfeld:
+      Gronsfeld_in(orig_encrypt_decrypt);
+      break;
+    case Ciphers::Visiner:
+      Visiner_in(orig_encrypt_decrypt);
+      break;
+    case Ciphers::Atbash:
+      Atbash_in(orig_encrypt_decrypt);
+      break;
+    default:
+      cout << "РћС€РёР±РєР°! Р‘С‹Р»Рѕ РІРІРµРґРµРЅРѕ РЅРµРІРµСЂРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ! РџРѕРїСЂРѕР±СѓР№С‚Рµ РµС‰Рµ СЂР°Р·."
+           << endl
+           << endl;
+      switch_encrypt(number_of_code, orig_encrypt_decrypt);
+  }
 }
 
-void switch_decrypt(int number_of_code, int orig_encrypt_decrypt, bool after_encrypt) {
-	cout << "Введите номер дешифровки:" << endl;
-	cout << "<1> Гронсфельд" << endl << "<2> Вижинер" << endl << "<3> Атбаш\n: ";
-	cin >> number_of_code;
-	cout << endl;
-	switch (Ciphers(number_of_code)) {
-	case Ciphers::Gronsfeld:
-		Gronsfeld_out(orig_encrypt_decrypt, after_encrypt);
-		break;
-	case Ciphers::Visiner:
-		Visiner_out(orig_encrypt_decrypt, after_encrypt);
-		break;
-	case Ciphers::Atbash:
-		Atbash_out(orig_encrypt_decrypt, after_encrypt);
-		break;
-	default:
-		cout << "Ошибка! Было введено неверное значение! Попробуйте еще раз." << endl << endl;
-		switch_decrypt(number_of_code, orig_encrypt_decrypt, after_encrypt);
-		break;
-	}
+void switch_decrypt(int number_of_code, int orig_encrypt_decrypt,
+                    bool after_encrypt) {
+  cout << "Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ РґРµС€РёС„СЂРѕРІРєРё:" << endl;
+  cout << "<1> Р“СЂРѕРЅСЃС„РµР»СЊРґ" << endl << "<2> Р’РёР¶РёРЅРµСЂ" << endl << "<3> РђС‚Р±Р°С€\n: ";
+  cin >> number_of_code;
+  cout << endl;
+  switch (Ciphers(number_of_code)) {
+    case Ciphers::Gronsfeld:
+      Gronsfeld_out(orig_encrypt_decrypt, after_encrypt);
+      break;
+    case Ciphers::Visiner:
+      Visiner_out(orig_encrypt_decrypt, after_encrypt);
+      break;
+    case Ciphers::Atbash:
+      Atbash_out(orig_encrypt_decrypt, after_encrypt);
+      break;
+    default:
+      cout << "РћС€РёР±РєР°! Р‘С‹Р»Рѕ РІРІРµРґРµРЅРѕ РЅРµРІРµСЂРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ! РџРѕРїСЂРѕР±СѓР№С‚Рµ РµС‰Рµ СЂР°Р·."
+           << endl
+           << endl;
+      switch_decrypt(number_of_code, orig_encrypt_decrypt, after_encrypt);
+      break;
+  }
 }
 
 void password_check() {
-	int password = 0;
-	cout << "Введите пароль:" << endl;
-	
-	while (cin >> password) {//проверка пароля
-		if (password != 7301) {
-			cout << "Пароль неверный, попробуйте ещё раз!" << endl << endl;
-		}
-		else {
-			cout << "Пароль верный" << endl << endl;
-			break;
-		}
-	}
-	cin.ignore(32767, '\n');
+  int password = 0;
+  cout << "Р’РІРµРґРёС‚Рµ РїР°СЂРѕР»СЊ:" << endl;
+
+  while (cin >> password) {  //РїСЂРѕРІРµСЂРєР° РїР°СЂРѕР»СЏ
+    if (password != 7301) {
+      cout << "РџР°СЂРѕР»СЊ РЅРµРІРµСЂРЅС‹Р№, РїРѕРїСЂРѕР±СѓР№С‚Рµ РµС‰С‘ СЂР°Р·!" << endl << endl;
+    } else {
+      cout << "РџР°СЂРѕР»СЊ РІРµСЂРЅС‹Р№" << endl << endl;
+      break;
+    }
+  }
+  cin.ignore(32767, '\n');
 }
 
-int switch_aftermath(int aftermath, int number_of_code, int orig_encrypt_decrypt) {
-	if (aftermath != 2) {
-		cout << "Желаете провести расшифровку?" << endl << "<1> Да" << endl << "<2> Нет\n: ";
-		cin >> aftermath;
-		cout << endl;
-	}
-	orig_encrypt_decrypt = 2;
-	bool after_encrypt;
-	switch (aftermath) {
-	case 1:
-		password_check();
-		after_encrypt = true;
-		switch_decrypt(number_of_code, orig_encrypt_decrypt, after_encrypt);
-		break;
-	case 2:
-		cout << "Перед повторным запусом программы не забудьте сохранить полученные результаты." << endl;
-		return 0;
-		break;
-	default:
-		cout << "Ошибка! Было введено неверное значение! Попробуйте еще раз." << endl;
-		switch_aftermath(aftermath, number_of_code, orig_encrypt_decrypt);
-		break;
-	}
+int switch_aftermath(int aftermath, int number_of_code,
+                     int orig_encrypt_decrypt) {
+  if (aftermath != 2) {
+    cout << "Р–РµР»Р°РµС‚Рµ РїСЂРѕРІРµСЃС‚Рё СЂР°СЃС€РёС„СЂРѕРІРєСѓ?" << endl
+         << "<1> Р”Р°" << endl
+         << "<2> РќРµС‚\n: ";
+    cin >> aftermath;
+    cout << endl;
+  }
+  orig_encrypt_decrypt = 2;
+  bool after_encrypt;
+  switch (aftermath) {
+    case 1:
+      password_check();
+      after_encrypt = true;
+      switch_decrypt(number_of_code, orig_encrypt_decrypt, after_encrypt);
+      break;
+    case 2:
+      cout << "РџРµСЂРµРґ РїРѕРІС‚РѕСЂРЅС‹Рј Р·Р°РїСѓСЃРѕРј РїСЂРѕРіСЂР°РјРјС‹ РЅРµ Р·Р°Р±СѓРґСЊС‚Рµ СЃРѕС…СЂР°РЅРёС‚СЊ "
+              "РїРѕР»СѓС‡РµРЅРЅС‹Рµ СЂРµР·СѓР»СЊС‚Р°С‚С‹."
+           << endl;
+      return 0;
+      break;
+    default:
+      cout << "РћС€РёР±РєР°! Р‘С‹Р»Рѕ РІРІРµРґРµРЅРѕ РЅРµРІРµСЂРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ! РџРѕРїСЂРѕР±СѓР№С‚Рµ РµС‰Рµ СЂР°Р·."
+           << endl;
+      switch_aftermath(aftermath, number_of_code, orig_encrypt_decrypt);
+      break;
+  }
 }
 
-void switch_program_mode(int encrypt_or_decrypt, int number_of_code, int orig_encrypt_decrypt) {
-	cout << "Вы хотите зашифровать сообщение или расшифровать?" << endl << "<1> Зашифровать" << endl << "<2> Расшифровать\n: ";
-	cin >> encrypt_or_decrypt;
-	cout << endl;
-	bool after_encrypt;	//На случаи, когда пользователь выбирает расшифровку текста сразу, минуя шифровку
-	switch (encrypt_or_decrypt) {
-	case 1:
-		orig_encrypt_decrypt = 1;
-		switch_encrypt(number_of_code, orig_encrypt_decrypt);
-		switch_aftermath(0, number_of_code, orig_encrypt_decrypt);
-		break;
-	case 2:
-		password_check();
-		orig_encrypt_decrypt = 2;
-		after_encrypt = false;
-		switch_decrypt(number_of_code, orig_encrypt_decrypt,after_encrypt);
-		switch_aftermath(2, number_of_code, orig_encrypt_decrypt);
-		break;
-	default:
-		cout << "Ошибка! Было введено неверное значение! Попробуйте еще раз." << endl;
-		switch_program_mode(encrypt_or_decrypt, number_of_code, orig_encrypt_decrypt);
-		break;
-	}
+void switch_program_mode(int encrypt_or_decrypt, int number_of_code,
+                         int orig_encrypt_decrypt) {
+  cout << "Р’С‹ С…РѕС‚РёС‚Рµ Р·Р°С€РёС„СЂРѕРІР°С‚СЊ СЃРѕРѕР±С‰РµРЅРёРµ РёР»Рё СЂР°СЃС€РёС„СЂРѕРІР°С‚СЊ?" << endl
+       << "<1> Р—Р°С€РёС„СЂРѕРІР°С‚СЊ" << endl
+       << "<2> Р Р°СЃС€РёС„СЂРѕРІР°С‚СЊ\n: ";
+  cin >> encrypt_or_decrypt;
+  cout << endl;
+  bool after_encrypt;  //РќР° СЃР»СѓС‡Р°Рё, РєРѕРіРґР° РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ РІС‹Р±РёСЂР°РµС‚ СЂР°СЃС€РёС„СЂРѕРІРєСѓ
+                       //С‚РµРєСЃС‚Р° СЃСЂР°Р·Сѓ, РјРёРЅСѓСЏ С€РёС„СЂРѕРІРєСѓ
+  switch (encrypt_or_decrypt) {
+    case 1:
+      orig_encrypt_decrypt = 1;
+      switch_encrypt(number_of_code, orig_encrypt_decrypt);
+      switch_aftermath(0, number_of_code, orig_encrypt_decrypt);
+      break;
+    case 2:
+      password_check();
+      orig_encrypt_decrypt = 2;
+      after_encrypt = false;
+      switch_decrypt(number_of_code, orig_encrypt_decrypt, after_encrypt);
+      switch_aftermath(2, number_of_code, orig_encrypt_decrypt);
+      break;
+    default:
+      cout << "РћС€РёР±РєР°! Р‘С‹Р»Рѕ РІРІРµРґРµРЅРѕ РЅРµРІРµСЂРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ! РџРѕРїСЂРѕР±СѓР№С‚Рµ РµС‰Рµ СЂР°Р·."
+           << endl;
+      switch_program_mode(encrypt_or_decrypt, number_of_code,
+                          orig_encrypt_decrypt);
+      break;
+  }
 }
-
 
 int main() {
-	setlocale(LC_ALL, "RUS");
-	file_New();
+  file_New();
 
-	password_check();
-	
-	string text;
-	cout << "Введите шифруемое/расшифруемое сообщение: \n: ";
-	getline(cin,text);
-	file_Write(text, 0, false);
-	int encrypt_or_decrypt = 0, number_of_code = 0, orig_encrypt_decrypt = 0, aftermath = 0;
-	
-	cout << endl;
+  password_check();
 
-	switch_program_mode(encrypt_or_decrypt, number_of_code, orig_encrypt_decrypt);
-	
-	return 0;
+  string text;
+  cout << "Р’РІРµРґРёС‚Рµ С€РёС„СЂСѓРµРјРѕРµ/СЂР°СЃС€РёС„СЂСѓРµРјРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ: \n: ";
+  getline(cin, text);
+  file_Write(text, 0, false);
+  int encrypt_or_decrypt = 0, number_of_code = 0, orig_encrypt_decrypt = 0,
+      aftermath = 0;
+
+  cout << endl;
+
+  switch_program_mode(encrypt_or_decrypt, number_of_code, orig_encrypt_decrypt);
+
+  return 0;
 }
