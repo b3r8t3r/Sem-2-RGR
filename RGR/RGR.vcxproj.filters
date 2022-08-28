@@ -29,17 +29,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Original.txt">
-      <Filter>Исходные файлы</Filter>
-    </Text>
-    <Text Include="Encrypted.txt">
-      <Filter>Исходные файлы</Filter>
-    </Text>
-    <Text Include="Decrypted.txt">
-      <Filter>Исходные файлы</Filter>
-    </Text>
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="fileInOut.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>

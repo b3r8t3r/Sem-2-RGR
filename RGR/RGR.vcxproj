@@ -146,11 +146,6 @@
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Decrypted.txt" />
-    <Text Include="Encrypted.txt" />
-    <Text Include="Original.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="Encrypt.h" />
     <ClInclude Include="Decrypt.h" />
     <ClInclude Include="fileInOut.h" />
